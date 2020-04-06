@@ -1,0 +1,149 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright (c) 2014-2026 Plugin Company
+ *
+ * This file is part of Custom Contact Forms, released under the MIT License.
+ * See the LICENSE file in the project root.
+ */
+-->
+<config>
+    <modules>
+        <Plugincompany_Contactforms>
+            <version>1.21.2</version>
+        </Plugincompany_Contactforms>
+    </modules>
+    <global>
+        <resources>
+            <plugincompany_contactforms_setup>
+                <setup>
+                    <module>Plugincompany_Contactforms</module>
+                    <class>Plugincompany_Contactforms_Model_Resource_Setup</class>
+                </setup>
+            </plugincompany_contactforms_setup>
+        </resources>
+        <blocks>
+            <plugincompany_contactforms>
+                <class>Plugincompany_Contactforms_Block</class>
+            </plugincompany_contactforms>
+        </blocks>
+        <helpers>
+            <plugincompany_contactforms>
+                <class>Plugincompany_Contactforms_Helper</class>
+            </plugincompany_contactforms>
+        </helpers>
+        <models>
+            <plugincompany_contactforms>
+                <class>Plugincompany_Contactforms_Model</class>
+                <resourceModel>plugincompany_contactforms_resource</resourceModel>
+            </plugincompany_contactforms>
+            <plugincompany_contactforms_resource>
+                <class>Plugincompany_Contactforms_Model_Resource</class>
+                <entities>
+                    <form>
+                        <table>plugincompany_contactforms_form</table>
+                    </form>
+                    <entry>
+                        <table>plugincompany_contactforms_entry</table>
+                    </entry>
+                    <entry_comment>
+                        <table>plugincompany_contactforms_entry_comment</table>
+                    </entry_comment>
+                    <form_store>
+                        <table>plugincompany_contactforms_form_store</table>
+                    </form_store>
+                </entities>
+            </plugincompany_contactforms_resource>
+        </models>
+        <events>
+            <controller_front_init_routers>
+                <observers>
+                    <plugincompany_contactforms>
+                        <class>Plugincompany_Contactforms_Controller_Router</class>
+                        <method>initControllerRouters</method>
+                    </plugincompany_contactforms>
+                </observers>
+            </controller_front_init_routers>
+        </events>
+    </global>
+    <adminhtml>
+        <layout>
+            <updates>
+                <plugincompany_contactforms>
+                    <file>plugincompany_contactforms.xml</file>
+                </plugincompany_contactforms>
+            </updates>
+        </layout>
+        <translate>
+            <modules>
+                <Plugincompany_Contactforms>
+                    <files>
+                        <default>Plugincompany_Contactforms.csv</default>
+                    </files>
+                </Plugincompany_Contactforms>
+            </modules>
+        </translate>
+    </adminhtml>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <Plugincompany_Contactforms before="Mage_Adminhtml">Plugincompany_Contactforms_Adminhtml</Plugincompany_Contactforms>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+    <frontend>
+        <routers>
+            <plugincompany_contactforms>
+                <use>standard</use>
+                <args>
+                    <module>Plugincompany_Contactforms</module>
+                    <frontName>plugincompany_contactforms</frontName>
+                </args>
+            </plugincompany_contactforms>
+        </routers>
+        <layout>
+            <updates>
+                <plugincompany_contactforms>
+                    <file>plugincompany_contactforms.xml</file>
+                </plugincompany_contactforms>
+            </updates>
+        </layout>
+        <translate>
+            <modules>
+                <Plugincompany_Contactforms>
+                    <files>
+                        <default>Plugincompany_Contactforms.csv</default>
+                    </files>
+                </Plugincompany_Contactforms>
+            </modules>
+        </translate>
+    </frontend>
+    <default>
+        <plugincompany_contactforms>
+            <form>
+                <breadcrumbs>1</breadcrumbs>
+                <frontendurl>1</frontendurl>
+                <url_prefix>contact</url_prefix>
+                <url_suffix>.html</url_suffix>
+                <visitor_ip>1</visitor_ip>
+            </form>
+            <customer_notification>
+                <comment_subject>A comment has been added</comment_subject>
+                <comment_template><![CDATA[<p>Dear {customer_name},</p>
+<p>A new comment has been added to your contact request.</p>
+<p>=== Begin Comment ===</p>
+<p>{comment_text}</p>
+<p>=== End Comment ===</p>
+<p>Best regards,</p>
+<p>{store_contact_name}<br>{store_name}</p>
+<p>{store_address}</p>]]></comment_template>
+
+
+            </customer_notification>
+        </plugincompany_contactforms>
+    </default>
+</config>

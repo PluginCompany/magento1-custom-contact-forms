@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright (c) 2014-2026 Plugin Company
+ *
+ * This file is part of Custom Contact Forms, released under the MIT License.
+ * See the LICENSE file in the project root.
+ */
+--><config>
+    <modules>
+        <Plugincompany_Contactforms>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends>
+                <Mage_Core />
+             </depends>
+        </Plugincompany_Contactforms>
+    </modules>
+</config>

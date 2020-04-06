@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright (c) 2014-2026 Plugin Company
+ *
+ * This file is part of Custom Contact Forms, released under the MIT License.
+ * See the LICENSE file in the project root.
+ */
+-->
+<layout>
+    <plugincompany_contactforms_form_view translate="label" module="plugincompany_contactforms">
+        <label>Form view page</label>
+        <update handle="page_one_column" />
+        <reference name="content">
+            <block type="plugincompany_contactforms/form_view" name="form_view"
+                   template="plugincompany/contactforms/form/widget/view.phtml"/>
+        </reference>
+    </plugincompany_contactforms_form_view>
+    <plugincompany_contactforms_form_viewiframe translate="label" module="plugincompany_contactforms">
+        <label>Form view page</label>
+        <update handle="page_empty"/>
+        <reference name="content">
+            <block type="plugincompany_contactforms/form_view" name="form_view"
+                   template="plugincompany/contactforms/form/widget/view.phtml"/>
+        </reference>
+    </plugincompany_contactforms_form_viewiframe>
+    <default>
+        <reference name="head">
+            <action method="addJs">
+                <name>plugincompany/contactforms/lib/head.load.min.js</name>
+                <params>sort="last"</params>
+            </action>
+            <action method="addJs">
+                <name>plugincompany/contactforms/pccforms.js</name>
+                <params>sort="last"</params>
+            </action>
+        </reference>
+    </default>
+</layout>

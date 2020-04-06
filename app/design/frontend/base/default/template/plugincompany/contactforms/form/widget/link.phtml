@@ -1,0 +1,24 @@
+<?php
+/**
+ * Copyright (c) 2014-2026 Plugin Company
+ *
+ * This file is part of Custom Contact Forms, released under the MIT License.
+ * See the LICENSE file in the project root.
+ */
+?>
+<?php
+
+/**
+ * Form link widget template
+ *
+ * @category    Plugincompany
+ * @package     Plugincompany_Contactforms
+ * @author      Milan Simek
+ */
+?>
+<?php $_form = $this->getCurrentForm();?>
+<?php if ($_form) :?>
+    <div class="form-widget-link">
+        <a href="<?php echo $_form->getFormUrl()?>"><?php echo $_form->getTitle()?></a>
+    </div>
+<?php endif;?>

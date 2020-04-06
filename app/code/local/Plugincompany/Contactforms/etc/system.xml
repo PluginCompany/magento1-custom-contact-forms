@@ -1,0 +1,246 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright (c) 2014-2026 Plugin Company
+ *
+ * This file is part of Custom Contact Forms, released under the MIT License.
+ * See the LICENSE file in the project root.
+ */
+-->
+<config>
+    <tabs>
+        <plugincompany translate="label" module="plugincompany_contactforms">
+            <label>Plugin Company</label>
+            <sort_order>20000</sort_order>
+        </plugincompany>
+    </tabs>
+    <sections>
+        <plugincompany_contactforms translate="label" module="plugincompany_contactforms">
+            <class>separator-top</class>
+            <label>Contact Forms</label>
+            <tab>plugincompany</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>100</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <form translate="label" module="plugincompany_contactforms">
+                    <label>General Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>0</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <breadcrumbs translate="label">
+                            <label>Enable breadcrumbs</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Show breadcrumbs navigation on contact form pages.</comment>
+                        </breadcrumbs>
+                        <frontendurl translate="label">
+                            <label>Create front-end URLs</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Create a new front-end page for each contact form.</comment>
+                        </frontendurl>
+                        <url_prefix translate="label comment">
+                            <label>Default URL prefix</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Optional URL prefix for contact form pages. Example: http://www.domain.com/{prefix}/{urlkey}{suffix}</comment>
+                        </url_prefix>
+                        <url_suffix translate="label comment">
+                            <label>Default URL suffix</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Optional URL suffix for contact form pages. Example: http://www.domain.com/{prefix}/{urlkey}{suffix}</comment>
+                        </url_suffix>
+                        <recaptcha_key translate="label">
+                            <label>ReCaptcha site key</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Your Google ReCaptcha site key, which can be obtained <a target="_blank" href="https://www.google.com/recaptcha/admin">here</a>.]]></comment>
+                        </recaptcha_key>
+                        <recaptcha_private_key translate="label">
+                            <label>ReCaptcha secret key</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Your Google ReCaptcha secret key, which can be obtained <a target="_blank" href="https://www.google.com/recaptcha/admin">here</a>.]]></comment>
+                        </recaptcha_private_key>
+                        <visitor_ip translate="label">
+                            <label>Add visitor IP to submission variables</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>80</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>If set to yes, the visitor IP address will be available in the form submission parameters.</comment>
+                        </visitor_ip>
+                    </fields>
+                </form>
+                <customer_notification translate="label" module="plugincompany_contactforms">
+                    <label>Default Customer Notification Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enable translate="label">
+                            <label>Enable customer notifications</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Notify customers per e-mail when their form is submitted.</comment>
+                        </enable>
+                        <bcc translate="label">
+                            <label>BCC recipient(s)</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Send a copy of the customer notification to this e-mail address / comma-separated list.</comment>
+                        </bcc>
+                        <from_name translate="label">
+                            <label>Sender name</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Leave empty to use the default store name.</comment>
+                        </from_name>
+                        <from_email translate="label">
+                            <label>Sender e-mail address</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Leave empty to use the default store e-mail address.</comment>
+                        </from_email>
+                        <subject translate="label">
+                            <label>Notification subject</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Subject of the customer notification e-mail.</comment>
+                        </subject>
+                        <comment_subject translate="label">
+                            <label>Comment Notification subject</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Subject of the comment notification e-mail.</comment>
+                        </comment_subject>
+                        <comment_template translate="label">
+                            <label>Comment Notification Template</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Template for the comment notification e-mail.</comment>
+                        </comment_template>
+                    </fields>
+                </customer_notification>
+                <admin_notification translate="label" module="plugincompany_contactforms">
+                    <label>Default Admin Notification Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>2</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enable translate="label">
+                            <label>Enable admin notifications</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Notify the admin per e-mail when a form is submitted.</comment>
+                        </enable>
+                        <to_email translate="label">
+                            <label>Notification recipient</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Leave empty to use the default store e-mail address.</comment>
+                        </to_email>
+                        <bcc translate="label">
+                            <label>BCC recipient(s)</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Send a copy of the admin notification to this e-mail address / comma-separated list.</comment>
+                        </bcc>
+                        <from_name translate="label">
+                            <label>Sender name</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Leave empty to use the default store name.</comment>
+                        </from_name>
+                        <from_email translate="label">
+                            <label>Sender e-mail address</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Leave empty to use the default store e-mail address.</comment>
+                        </from_email>
+                        <subject translate="label">
+                            <label>Notification subject</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Subject of the admin notification e-mail.</comment>
+                        </subject>
+                    </fields>
+                </admin_notification>
+            </groups>
+        </plugincompany_contactforms>
+    </sections>
+</config>

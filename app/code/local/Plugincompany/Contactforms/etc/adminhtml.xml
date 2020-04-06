@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright (c) 2014-2026 Plugin Company
+ *
+ * This file is part of Custom Contact Forms, released under the MIT License.
+ * See the LICENSE file in the project root.
+ */
+-->
+<config>
+    <acl>
+        <resources>
+            <all>
+                <title>Allow Everything</title>
+            </all>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <plugincompany_contactforms translate="title" module="plugincompany_contactforms">
+                                        <title>Contact Forms</title>
+                                        <sort_order>1000</sort_order>
+                                    </plugincompany_contactforms>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                    <cms>
+                        <children>
+                            <plugincompany_contactforms translate="title" module="plugincompany_contactforms">
+                                <title>Contact Forms</title>
+                                <sort_order>1000</sort_order>
+                                <children>
+                                    <form translate="title" module="plugincompany_contactforms">
+                                        <title>Contact Forms</title>
+                                        <sort_order>0</sort_order>
+                                    </form>
+                                    <entry translate="title" module="plugincompany_contactforms">
+                                        <title>Form Submissions</title>
+                                        <sort_order>10</sort_order>
+                                    </entry>
+                                </children>
+                            </plugincompany_contactforms>
+                        </children>
+                    </cms>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+    <menu>
+        <cms>
+            <children>
+                <plugincompany_contactforms translate="title" module="plugincompany_contactforms">
+                    <title>Contact Forms</title>
+                    <sort_order>17</sort_order>
+                    <children>
+                        <form translate="title" module="plugincompany_contactforms">
+                            <title>Manage Contact Forms</title>
+                            <action>adminhtml/contactforms_form</action>
+                            <sort_order>0</sort_order>
+                        </form>
+                        <entry translate="title" module="plugincompany_contactforms">
+                            <title>Form Submissions</title>
+                            <action>adminhtml/contactforms_entry</action>
+                            <sort_order>10</sort_order>
+                        </entry>
+                    </children>
+                </plugincompany_contactforms>
+            </children>
+        </cms>
+    </menu>
+</config>

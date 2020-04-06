@@ -1,0 +1,155 @@
+<?php
+/**
+ * Copyright (c) 2014-2026 Plugin Company
+ *
+ * This file is part of Custom Contact Forms, released under the MIT License.
+ * See the LICENSE file in the project root.
+ */
+
+/**
+ * Form view widget template
+ *
+ * @category    Plugincompany
+ * @package     Plugincompany_Contactforms
+ * @author      Milan Simek
+ */
+?>
+<?php $_form = $this->getCurrentForm();?>
+
+
+<?php
+$isSecure = Mage::app()->getStore()->isCurrentlySecure();
+$jsUrl = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS,$isSecure) . 'plugincompany/'; ?>
+<?php if ($_form) {
+
+    $captcha = '<div class="g-recaptcha" data-sitekey="' . Mage::getStoreConfig('plugincompany_contactforms/form/recaptcha_key') . '"></div>';
+
+    $isPanel = $_form->getIsPanel();
+
+    $inWindow = false;
+    if ($this->getShowWidgetAsLink()) {
+        $inWindow = true;
+    }
+
+    if ($inWindow) {
+        $linkText = $this->getLinkTitle();
+        if (!$linkText) {
+            $linkText = $this->__('Contact Us');
+        }
+    }
+    if ($inWindow && $this->getDisplayAsButton()) {
+        $linkText = '<button type="button" title="' . $linkText . '" class="button"><span><span>' . $linkText . '</span></span></button>';
+    }
+    ?>
+
+    <?php if($inWindow && $this->getWrapInBlock() && !$this->getExitIntent()){ ?>
+       <div class="block">
+            <div class="block-title">
+                <strong>
+                    <span><?php echo $this->getWidgetTitle();?></span>
+                </strong>
+            </div>
+           <div class="block-content">
+               <p style="">
+                   <?php echo nl2br($this->getLinkText());?>
+                   <a class="pccflightbox pccf-form-link-<?php echo $_form->getId(); ?>" style="float:<?php echo $this->getLinkAlignment();?>" href="#pccf_form_<?php echo $_form->getId() ?>" popupminwidth="<?php echo $this->getPopupMinWidth(); ?>"><?php echo $linkText;?></a>
+               </p>
+           </div>
+       </div>
+        <script type="text/pccf_template" class="pccf_form_popup_container"><div style="display:none;" class="pccf_lightbox_wrapper">
+    <?php } ?>
+    <?php if($inWindow && !$this->getWrapInBlock() && !$this->getExitIntent()){ ?>
+        <a class="pccflightbox pccf-form-link-<?php echo $_form->getId(); ?>" popupminwidth="<?php echo $this->getPopupMinWidth(); ?>" href="#pccf_form_<?php echo $_form->getId() ?>"><?php echo $linkText;?></a>
+        <script type="text/pccf_template" class="pccf_form_popup_container"><div style="display:none;" class="pccf_lightbox_wrapper">
+    <?php }?>
+    <?php if($inWindow && $this->getExitIntent()){ ?>
+        <script type="text/pccf_template" class="pccf_form_popup_container"><div style="display:none;" class="pccf_lightbox_wrapper pccf_exit_intent" popupminwidth="<?php echo $this->getPopupMinWidth(); ?>" aggressive="<?php echo $this->getAggressive(); ?>" cookielifetime="<?php echo $this->getCookieLifetime();?>">
+    <?php }?>
+            <div id="pccf_form_<?php echo $_form->getId() ?>" formid="<?php echo $_form->getId();?>" class="pccf <?php if($_form->getRtl()){echo 'rtl';} ?> <?php echo $_form->getTheme()?> <?php if($this->getAutoHide()){ ?>pccf_autohide<?php } ?>  <?php if($_form->getFocusFirstField()){ ?>focus_first_field<?php } ?>  <?php echo $_form->getCssClasses(); ?>" style="<?php if($w = $_form->getMaxWidth()){echo 'max-width:' . $w; }?>;text-align:left;position:relative;">
+                <img class="pccf_loader" alt="Loading gears animation" src="<?php echo $jsUrl; ?>contactforms/img/gears-anim.gif" style="position:absolute;left:50%;top:50%;margin-left:-90px;margin-top:-80px" />
+                <div class="form-view pccformwrapper <?php echo $_form->getWrapClass(); ?> " style="position:relative;visibility:hidden;">
+                    <?php if ($isPanel) { ?>
+                <?php if ($_form->getShowTitle() == '1') { ?>
+                    <div class="panel-heading" style="text-align:center">
+                        <h3 class="panel-title"><?php if($f = $_form->getFrontendTitle()){echo $f;}else{echo '&nbsp;';}; ?></h3>
+                    </div>
+                <?php } ?>
+                    <div class="panel-body" style="padding-top:14px">
+                        <?php }elseif ($_form->getFormWrapper() == 'well' && $_form->getShowTitle() == '1') {?>
+                            <legend style="text-align:center"><?php echo $_form->getFrontendTitle();?></legend>
+                        <?php } ?>
+                        <div class="alert alert-info submitting" style="display:none;" role="alert"><?php echo Mage::helper('plugincompany_contactforms')->__("Submitting form..."); ?></div>
+                        <div class="form-horizontal pccform" method="post" action="<?php echo $this->getSubmitUrl();?>">
+                            <?php
+                                $formHtml = str_replace(array('<captcha></captcha>','<legend></legend>'),array($captcha,''), $_form->getContactFormHtml());
+                                $formHtml = preg_replace('/<legend>(.*?)<\/legend>/','',$formHtml);
+                                $formHtml = str_replace('col-lg-6 visualcaptcha', 'col-lg-8 visualcaptcha', $formHtml);
+                                echo $formHtml;
+                            ?>
+                            <input id="customer_logged_in" type="hidden" value="<?php echo $this->isCustomerLoggedIn() ? 'Yes' : 'No'; ?>">
+                        </div>
+                        <?php if ($isPanel) { ?>
+                    </div>
+                <?php } ?>
+                </div>
+                <div class="dependent_fields" style="display:none">
+                    <?php echo $_form->getDependentFields(); ?>
+                </div>
+            </div>
+    <?php if($inWindow){ ?>
+        </div></script>
+        <?php }?>
+
+    <script type="text/javascript">
+        PCCForms = true;
+        <?php if($_form->getTheme()){ ?>
+            PCCFThemes.push('<?php echo $_form->getTheme();?>');
+        <?php } ?>
+        PCCBaseJSURL = "<?php echo $jsUrl; ?>";
+        RECAPTCHA_PUBLIC_KEY = '<?php echo Mage::getStoreConfig('plugincompany_contactforms/form/recaptcha_key');?>';
+        PCCFileUploadUrl =  '<?php echo $this->getUploadUrl(); ?>';
+        PCCFVisualCaptchaUrl =  '<?php echo $this->getVisualCaptchaUrl(); ?>';
+        <?php if($_form->hasVisualCaptcha()) { ?>
+            PCCFHasVisualCaptcha = true;
+        <?php } ?>
+        <?php if($_form->hasReCaptcha()) { ?>
+            PCCFHasReCaptcha = true;
+        <?php } ?>
+        PCCFCloseButtonText = "<?php echo htmlentities(Mage::helper("plugincompany_contactforms")->__("close")); ?>";
+        <?php if($inWindow){ ?>
+            PCCFLightbox = true;
+        <?php } ?>
+        <?php if(stristr($_form->getContactFormHtml(),' date ')){ ?>
+            PCCFDate = true;
+        <?php } ?>
+        <?php if($_form->getDependentFields() && $_form->getDependentFields() != "[]"){ ?>
+            PCCFDependentFields.push(<?php echo $_form->getId(); ?>);
+        <?php } ?>
+        window.PCCF<?php echo $_form->getId(); ?>SubmitJS = function(){
+            <?php echo $_form->getArbitraryJs(); ?>
+        }
+        window.PCCF<?php echo $_form->getId(); ?>BeforeSubmitJS = function(){
+            <?php echo $_form->getBeforesubmitJs(); ?>
+        }
+        window.PCCFOnLoadJS[<?php echo $_form->getId(); ?>] = function(){
+            <?php echo $_form->getPageloadJs(); ?>
+        }
+    </script>
+
+    <!--[if lt IE 9]>
+            <script type="text/javascript">
+                var oldBrowser = true;
+            </script>
+    <![endif]-->
+    <!--[if lte IE 9]>
+        <script type="text/javascript">
+            var BrowserIE9 = true;
+        </script>
+    <![endif]-->
+    <?php if(trim($_form->getCustomCss())){ ?>
+        <style type="text/css">
+            <?php echo $_form->getCustomCss(); ?>
+        </style>
+    <?php } ?>
+<?php } ?>
+

@@ -1,0 +1,88 @@
+<?php
+/**
+ * Copyright (c) 2014-2026 Plugin Company
+ *
+ * This file is part of Custom Contact Forms, released under the MIT License.
+ * See the LICENSE file in the project root.
+ */
+
+?>
+<?php
+$_htmlId      = $this->getElement()->getHtmlId();
+$_htmlClass   = $this->getElement()->getClass();
+$_htmlName    = $this->getElement()->getName();
+$_readonly    = $this->getElement()->getReadonly();
+
+$conditArray = Mage::registry('current_form')->getConditionalAdminToEmailArray();
+
+$_counter = 0;
+?>
+<tr>
+    <td class="label"><?php echo $this->getElement()->getLabel() ?></td>
+    <td colspan="10" class="grid hours">
+        <table id="table_grid" class="table_grid_data border" cellspacing="0" cellpadding="0"><tbody id="table_grid_data" >
+            <tr class="headings">
+                <th><?php echo $this->__('Field ID') ?></th>
+                <th><?php echo $this->__('Value') ?></th>
+                <th><?php echo $this->__('Match Type') ?></th>
+                <th><?php echo $this->__('E-Mail') ?></th>
+                <th><button id="add_new_option_button" title="Add Option" type="button" class="scalable add"><span><span><span><?php echo $this->__('Add Option') ?></span></span></span></button></th>
+            </tr>
+            <?php foreach ($conditArray as $_item): ?>
+                <tr class="row_s" id="row-<?php echo $_counter?>">
+                    <td><input name="<?php echo $_htmlName; ?>[row_<?php echo $_counter ?>][dept_name]" value="<?php echo $_item['dept_name'] ?>" class="input-text" type="text"></td>
+                    <td><input name="<?php echo $_htmlName; ?>[row_<?php echo $_counter ?>][person]" value="<?php echo $_item['person'] ?>" class="input-text" type="text"></td>
+                    <td>
+                        <?php $sel = isset($_item['match_type']) ? $_item['match_type'] : ""; ?>
+                        <select name="<?php echo $_htmlName; ?>[row_<?php echo $_counter ?>][match_type]">
+                            <option <?php if($sel == 'exact'){echo 'selected=selected ';}?> value="exact">Exact match</option>
+                            <option <?php if($sel == 'contains'){echo 'selected=selected ';}?> value="contains">Contains</option>
+                        </select>
+                    </td>
+                    <td><input name="<?php echo $_htmlName; ?>[row_<?php echo $_counter ?>][e_mail]" value="<?php echo $_item['e_mail'] ?>" class="input-text" type="text"></td>
+                    <td class="a-left" id="delete_button_container_option_<?php echo $_counter ?>'">
+                        <input id="delete-row-<?php echo $_counter ?>" type="hidden" class="delete-flag" name="<?php echo $_htmlName; ?>[delete][option_<?php echo $_counter ?>]" value=""/>
+                        <button onclick="$('row-<?php echo $_counter ?>').style.display='none'; $('delete-row-<?php echo $_counter ?>').setValue(1);" title="Delete" type="button" class="scalable delete delete-option"><span><span><span>Delete</span></span></span></button>
+                    </td>
+                </tr>
+                <?php
+                $_counter++;
+            endforeach;
+            ?>
+            </tbody>
+        </table>
+        <p class="note">
+            <span>
+                Send a copy of the admin notification to this e-mail address<br> on condition that a specific form field value is submitted.
+            </span>
+        </p>
+
+        <script type="text/javascript">//<![CDATA[
+            $("row_form_condit_to_email").hide();
+
+            var _form_html_row = '<tr class="row_s" id="row-{{id}}">'+
+                '<td><input name="<?php echo $_htmlName; ?>[row_{{id}}][dept_name]" value="" class="input-text required-entry" type="text"></td>'+
+                '<td><input name="<?php echo $_htmlName; ?>[row_{{id}}][person]" value="" class="input-text required-entry" type="text"></td>'+
+                '<td>' +
+                '<select name="<?php echo $_htmlName; ?>[row_{{id}}][match_type]">' +
+                '<option value="exact">Exact match</option>' +
+                '<option value="exact">Contains</option>' +
+                '</select>' +
+                '</td>' +
+                '<td><input name="<?php echo $_htmlName; ?>[row_{{id}}][e_mail]" value="" class="input-text required-entry validate-email" type="text"></td>'+
+                '<td class="a-left" id="delete_button_container_option_{{id}}">'+
+/*                '<input id="delete-row-{{id}}" type="hidden" class="delete-flag" name="<?php echo $_htmlName; ?>[delete][row_{{id}}]" value=""/>'+*/
+                '<button onclick="$(\'row-{{id}}\').remove();" title="Delete" type="button" class="scalable delete delete-option">'+
+/*                '<button onclick="$(\'row-{{id}}\').style.display=\'none\'; $(\'delete-row-{{id}}\').setValue(1);" title="Delete" type="button" class="scalable delete delete-option">'+*/
+                '<span><span><span>Delete</span></span></span></button></td></tr>';
+
+            var _row_counter = <?php echo $_counter?>;
+
+            $('add_new_option_button').observe('click', function(){
+                $('table_grid_data').insert(_form_html_row.replace(/\{\{id\}\}/ig, _row_counter));
+                _row_counter++;
+            });
+
+            //]]></script>
+    </td>
+</tr>

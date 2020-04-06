@@ -1,0 +1,361 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright (c) 2014-2026 Plugin Company
+ *
+ * This file is part of Custom Contact Forms, released under the MIT License.
+ * See the LICENSE file in the project root.
+ */
+-->
+<widgets>
+    <contactforms_form_view type="plugincompany_contactforms/form_widget_view" translate="name description" module="plugincompany_contactforms">
+        <name>Custom Contact Form</name>
+        <description>Form view widget</description>
+        <is_email_compatible>0</is_email_compatible>
+        <parameters>
+            <form_id type="complex" translate="label">
+                <visible>1</visible>
+                <required>1</required>
+                <label>Widget form</label>
+                <type>label</type>
+                <helper_block>
+                    <type>plugincompany_contactforms/adminhtml_form_widget_chooser</type>
+                    <data>
+                        <button translate="open">
+                            <open>Select Form</open>
+                        </button>
+                    </data>
+                </helper_block>
+                <sort_order>10</sort_order>
+            </form_id>
+            <show_widget_as_link>
+                <visible>1</visible>
+                <required>1</required>
+                <label>Display as pop-up</label>
+                <type>select</type>
+                <values>
+                    <no translate="label">
+                        <value>0</value>
+                        <label>No</label>
+                    </no>
+                    <yes translate="label">
+                        <value>1</value>
+                        <label>Yes</label>
+                    </yes>
+                </values>
+                <description>Display the contact form in a lightbox pop-up.</description>
+                <sort_order>20</sort_order>
+            </show_widget_as_link>
+            <popup_min_width>
+                <visible>1</visible>
+                <label>Pop-up min width</label>
+                <type>text</type>
+                <sort_order>30</sort_order>
+                <depends>
+                    <show_widget_as_link>
+                        <value>1</value>
+                    </show_widget_as_link>
+                </depends>
+                <description>Minimum width of the pop-up form in pixels, for example 600px. Leave empty to use the default width.</description>
+            </popup_min_width>
+            <exit_intent>
+                <visible>1</visible>
+                <required>1</required>
+                <label>Pop-up display type</label>
+                <type>select</type>
+                <values>
+                    <no translate="label">
+                        <value>0</value>
+                        <label>Pop-up link/button</label>
+                    </no>
+                    <yes translate="label">
+                        <value>1</value>
+                        <label>Exit intent pop-up</label>
+                    </yes>
+                </values>
+                <description>Show a pop-up link/button or an exit intent pop-up.</description>
+                <sort_order>40</sort_order>
+                <depends>
+                    <show_widget_as_link>
+                        <value>1</value>
+                    </show_widget_as_link>
+                </depends>
+            </exit_intent>
+            <display_as_button>
+                <visible>1</visible>
+                <required>1</required>
+                <label>Pop-up link/button</label>
+                <type>select</type>
+                <values>
+                    <no translate="label">
+                        <value>0</value>
+                        <label>Link</label>
+                    </no>
+                    <yes translate="label">
+                        <value>1</value>
+                        <label>Button</label>
+                    </yes>
+                </values>
+                <sort_order>50</sort_order>
+                <depends>
+                    <show_widget_as_link>
+                        <value>1</value>
+                    </show_widget_as_link>
+                    <exit_intent>
+                        <value>0</value>
+                    </exit_intent>
+                </depends>
+            </display_as_button>
+            <link_title>
+                <visible>1</visible>
+                <required>1</required>
+                <label>Link/button text</label>
+                <type>text</type>
+                <sort_order>51</sort_order>
+                <depends>
+                    <show_widget_as_link>
+                        <value>1</value>
+                    </show_widget_as_link>
+                    <exit_intent>
+                        <value>0</value>
+                    </exit_intent>
+                </depends>
+            </link_title>
+            <link_alignment>
+                    <visible>1</visible>
+                    <required>1</required>
+                    <label>Link/button alignment</label>
+                    <type>select</type>
+                    <values>
+                        <default translate="label">
+                            <value>none</value>
+                            <label>Default</label>
+                        </default>
+                        <left translate="label">
+                            <value>left</value>
+                            <label>Left</label>
+                        </left>
+                        <right translate="label">
+                            <value>right</value>
+                            <label>Right</label>
+                        </right>
+                    </values>
+                    <sort_order>52</sort_order>
+                    <depends>
+                        <show_widget_as_link>
+                            <value>1</value>
+                        </show_widget_as_link>
+                        <exit_intent>
+                            <value>0</value>
+                        </exit_intent>
+                    </depends>
+            </link_alignment>
+            <aggressive>
+                <visible>1</visible>
+                <required>1</required>
+                <label>Enable exit intent cookie</label>
+                <type>select</type>
+                <values>
+                    <no translate="label">
+                        <value>0</value>
+                        <label>Yes</label>
+                    </no>
+                    <yes translate="label">
+                        <value>1</value>
+                        <label>No</label>
+                    </yes>
+                </values>
+                <description>Create a cookie to show the exit intent pop-up form only once per visitor.</description>
+                <sort_order>60</sort_order>
+                <depends>
+                    <exit_intent><value>1</value></exit_intent>
+                    <show_widget_as_link><value>1</value></show_widget_as_link>
+                </depends>
+            </aggressive>
+            <cookie_lifetime>
+                <visible>1</visible>
+                <label>Cookie lifetime</label>
+                <type>text</type>
+                <description>The lifetime in days after which a cookie expires.</description>
+                <sort_order>61</sort_order>
+                <depends>
+                    <exit_intent><value>1</value></exit_intent>
+                    <show_widget_as_link><value>1</value></show_widget_as_link>
+                    <aggressive><value>0</value></aggressive>
+                </depends>
+            </cookie_lifetime>
+            <wrap_in_block>
+                <visible>1</visible>
+                <required>1</required>
+                <label>Create sidebar block</label>
+                <type>select</type>
+                <values>
+                    <no translate="label">
+                        <value>0</value>
+                        <label>No</label>
+                    </no>
+                    <yes translate="label">
+                        <value>1</value>
+                        <label>Yes</label>
+                    </yes>
+                </values>
+                <description>Show the pop-up link/button in a sidebar content block.</description>
+                <sort_order>65</sort_order>
+                <depends>
+                    <show_widget_as_link>
+                        <value>1</value>
+                    </show_widget_as_link>
+                    <exit_intent>
+                        <value>0</value>
+                    </exit_intent>
+                </depends>
+            </wrap_in_block>
+            <auto_hide>
+                <visible>1</visible>
+                <required>1</required>
+                <label>Auto hide pop-up</label>
+                <type>select</type>
+                <values>
+                    <no translate="label">
+                        <value>0</value>
+                        <label>No</label>
+                    </no>
+                    <yes translate="label">
+                        <value>1</value>
+                        <label>Yes</label>
+                    </yes>
+                </values>
+                <description>Auto hide pop-up after succesful submission.</description>
+                <sort_order>70</sort_order>
+                <depends>
+                    <show_widget_as_link>
+                        <value>1</value>
+                    </show_widget_as_link>
+                </depends>
+            </auto_hide>
+            <widget_title>
+                <visible>1</visible>
+                <required>0</required>
+                <label>Sidebar block title</label>
+                <type>text</type>
+                <sort_order>71</sort_order>
+                <depends>
+                    <wrap_in_block>
+                        <value>1</value>
+                    </wrap_in_block>
+                    <show_widget_as_link>
+                        <value>1</value>
+                    </show_widget_as_link>
+                </depends>
+            </widget_title>
+            <link_text>
+                <visible>1</visible>
+                <required>0</required>
+                <label>Sidebar block text</label>
+                <type>textarea</type>
+                <sort_order>72</sort_order>
+                <depends>
+                    <wrap_in_block>
+                        <value>1</value>
+                    </wrap_in_block>
+                    <show_widget_as_link>
+                        <value>1</value>
+                    </show_widget_as_link>
+                    <exit_intent>
+                        <value>0</value>
+                    </exit_intent>
+                </depends>
+            </link_text>
+        </parameters>
+    </contactforms_form_view>
+    <contactforms_form_slideout type="plugincompany_contactforms/form_widget_slideout" translate="name description" module="plugincompany_contactforms">
+        <name>Custom Contact Form Slide-Out</name>
+        <description>Form slideout widget</description>
+        <is_email_compatible>0</is_email_compatible>
+        <parameters>
+            <form_id type="complex" translate="label">
+                <visible>1</visible>
+                <required>1</required>
+                <label>Slide-out widget form</label>
+                <type>label</type>
+                <helper_block>
+                    <type>plugincompany_contactforms/adminhtml_form_widget_chooser</type>
+                    <data>
+                        <button translate="open">
+                            <open>Select Form</open>
+                        </button>
+                    </data>
+                </helper_block>
+                <sort_order>1</sort_order>
+            </form_id>
+            <slideout_position>
+                <visible>1</visible>
+                <required>1</required>
+                <label>Slide-out widget position</label>
+                <type>select</type>
+                <values>
+                    <left translate="label">
+                        <value>left</value>
+                        <label>Left</label>
+                    </left>
+                    <right translate="label">
+                        <value>right</value>
+                        <label>Right</label>
+                    </right>
+                    <bottomleft translate="label">
+                        <value>bottom_left</value>
+                        <label>Bottom-left</label>
+                    </bottomleft>
+                    <bottomright translate="label">
+                        <value>bottom_right</value>
+                        <label>Bottom-right</label>
+                    </bottomright>
+                </values>
+                <description>The page position of the slide-out widget button and contact form.</description>
+                <sort_order>20</sort_order>
+            </slideout_position>
+            <title>
+                <visible>1</visible>
+                <required>0</required>
+                <label>Widget button text</label>
+                <type>text</type>
+                <description>Text shown in the slide-out widget button. Leave empty to show the default envelope icon.</description>
+                <sort_order>30</sort_order>
+            </title>
+            <title_color>
+                <visible>1</visible>
+                <required>0</required>
+                <label>Button text / icon color</label>
+                <type>pccolor</type>
+                <value>#ffffff</value>
+                <sort_order>40</sort_order>
+            </title_color>
+            <button_color>
+                <visible>1</visible>
+                <required>0</required>
+                <label>Button background color</label>
+                <type>pccolor</type>
+                <value>#EE6E73</value>
+                <sort_order>50</sort_order>
+            </button_color>
+            <auto_hide>
+                <visible>1</visible>
+                <required>1</required>
+                <label>Auto hide</label>
+                <type>select</type>
+                <values>
+                    <no translate="label">
+                        <value>0</value>
+                        <label>No</label>
+                    </no>
+                    <yes translate="label">
+                        <value>1</value>
+                        <label>Yes</label>
+                    </yes>
+                </values>
+                <description>Auto hide form after succesful submission</description>
+                <sort_order>60</sort_order>
+            </auto_hide>
+        </parameters>
+    </contactforms_form_slideout>
+</widgets>
