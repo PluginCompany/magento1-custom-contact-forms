@@ -354,11 +354,41 @@ class Plugincompany_Contactforms_Adminhtml_Contactforms_EntryController
     }
 
     public function downloadfileAction(){
-        $file = base64_decode($this->getRequest()->getParam('file'));
+        $file = base64_decode((string) $this->getRequest()->getParam('file'));
+        $realFile = $this->_getAllowedDownloadPath($file);
+        if ($realFile === false) {
+            $this->_getSession()->addError(Mage::helper('plugincompany_contactforms')->__('The requested file could not be found.'));
+            $this->_redirectReferer($this->getUrl('*/*/'));
+            return;
+        }
         $filename = explode(DS,$file);
         $filename = array_pop($filename);
         header("Content-disposition: attachment; filename=$filename");
-        readfile($file);
+        readfile($realFile);
+    }
+
+    /**
+     * Only allow downloads of form submission uploads, which are stored in
+     * media/pccf_uploads/<session>/<form uid>/ (see FormController::_getUploadDir()).
+     *
+     * @param string $file requested path
+     * @return string|false resolved path of the file, or false if not allowed
+     */
+    protected function _getAllowedDownloadPath($file)
+    {
+        if (!is_string($file) || $file === '' || strpos($file, "\0") !== false) {
+            return false;
+        }
+        $uploadDir = realpath(Mage::getBaseDir('media') . DS . 'pccf_uploads');
+        $realFile = realpath($file);
+        if ($uploadDir === false || $realFile === false || !is_file($realFile) || !is_readable($realFile)) {
+            return false;
+        }
+        $uploadDir = rtrim($uploadDir, '/\\') . DS;
+        if (strpos($realFile, $uploadDir) !== 0) {
+            return false;
+        }
+        return $realFile;
     }
 
     public function entryCommentsGridAction(){
